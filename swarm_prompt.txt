@@ -1,0 +1,25 @@
+Run swarm:
+Requirement: Database Schema & ORM Setup - Define all database models using Prisma ORM: Project, Phase, PhaseDetail, Decision, Problem, Resolution, DebugLog, Artifact, User. Configure SQLite as default with migration paths to PostgreSQL, MySQL, and SQL Server. Create seed data for demo purposes.
+
+**Acceptance Criteria:**
+
+* All Prisma models are defined in schema.prisma.
+* SQLite database initializes correctly.
+* Migration scripts exist for PostgreSQL, MySQL, SQL Server.
+* Seed script populates demo project with sample phases.
+* Database connection is tested and verified.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-88.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-88/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-88.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-88`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.

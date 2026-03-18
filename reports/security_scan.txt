@@ -1,0 +1,31 @@
+## Security Scan Report - ZOC-88
+
+Date: 2026-03-18T06:21:16Z
+
+### Commands
+1) npm audit --json
+2) npx prisma validate --schema prisma/schema.prisma
+
+### npm audit --json (summary)
+{
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "dependencies": {
+    "prod": 36,
+    "dev": 73,
+    "optional": 33,
+    "peer": 0,
+    "peerOptional": 0,
+    "total": 108
+  }
+}
+
+### prisma validate
+Prisma schema loaded from prisma/schema.prisma
+The schema at prisma/schema.prisma is valid 🚀
