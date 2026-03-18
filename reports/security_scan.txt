@@ -1,31 +1,51 @@
-Security scan report
-Generated at: 2026-03-18T06:13:42Z
-Issue: ZOC-92
-Branch: ZOC-92
+# ZOC-92 Security Scan Report
 
-=== semgrep ===
-               
-               
-┌─────────────┐
-│ Scan Status │
-└─────────────┘
-  Scanning 4 files tracked by git with 1063 Code rules:
-  Scanning 4 files with 47 <multilang> rules.
-                
-                
-┌──────────────┐
-│ Scan Summary │
-└──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 47
- • Targets scanned: 4
- • Parsed lines: ~100.0%
- • Scan was limited to files tracked by git
- • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
-Ran 47 rules on 4 files: 0 findings.
-(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+Date (UTC): 2026-03-18
+Repo: /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-92/repo
 
-If Semgrep missed a finding, please send us feedback to let us know!
-See https://semgrep.dev/docs/reporting-false-negatives/
+## Commands Executed
 
+1) Dependency audit (all dependencies)
+```bash
+npm audit --json
+```
+Result summary:
+- info: 0
+- low: 0
+- moderate: 2
+- high: 0
+- critical: 0
+- total: 2
+
+Notes:
+- Findings are in dev-tooling path (Vite/esbuild advisory chain).
+- No High/Critical findings present.
+
+2) Dependency audit (production dependencies only)
+```bash
+npm audit --omit=dev
+```
+Result summary:
+- found 0 vulnerabilities
+
+3) Build verification (sanity + supply-chain integrity check)
+```bash
+npm run build
+```
+Result:
+- SUCCESS
+- Vite production build completed with generated assets in `dist/`.
+
+## Remediation Actions
+
+- Upgraded Vite within v5 line to reduce known advisory surface:
+```bash
+npm install -D vite@5.4.20
+```
+- Re-ran `npm audit --omit=dev` to verify production dependency security posture.
+
+## Conclusion
+
+- **High vulnerabilities:** 0
+- **Critical vulnerabilities:** 0
+- Requirement to remediate High/Critical findings is satisfied (none found).
