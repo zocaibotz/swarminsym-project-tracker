@@ -1,9 +1,9 @@
 Security scan report
-Generated at: 2026-03-18T02:41:07Z
+Generated at: 2026-03-18T02:45:31Z
 Issue: ZOC-86
 Branch: ZOC-86
 
-=== semgrep ===
+=== semgrep (SAST) ===
                
                
 ┌─────────────┐
@@ -21,6 +21,8 @@ Branch: ZOC-86
  • Rules run: 47
  • Targets scanned: 6
  • Parsed lines: ~100.0%
+ • Scan skipped: 
+   ◦ Files matching .semgrepignore patterns: 1
  • Scan was limited to files tracked by git
  • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
 Ran 47 rules on 6 files: 0 findings.
@@ -29,3 +31,5 @@ Ran 47 rules on 6 files: 0 findings.
 If Semgrep missed a finding, please send us feedback to let us know!
 See https://semgrep.dev/docs/reporting-false-negatives/
 
+=== dependency scan ===
+No package.json found; dependency scan not applicable for this docs-only repository snapshot.
