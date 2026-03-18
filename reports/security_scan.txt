@@ -1,31 +1,31 @@
-Security scan report
-Generated at: 2026-03-18T06:14:01Z
-Issue: ZOC-88
-Branch: ZOC-88
+## Security Scan Report - ZOC-88
 
-=== semgrep ===
-               
-               
-┌─────────────┐
-│ Scan Status │
-└─────────────┘
-  Scanning 4 files tracked by git with 1063 Code rules:
-  Scanning 4 files with 47 <multilang> rules.
-                
-                
-┌──────────────┐
-│ Scan Summary │
-└──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 47
- • Targets scanned: 4
- • Parsed lines: ~100.0%
- • Scan was limited to files tracked by git
- • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
-Ran 47 rules on 4 files: 0 findings.
-(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+Date: 2026-03-18T06:21:16Z
 
-If Semgrep missed a finding, please send us feedback to let us know!
-See https://semgrep.dev/docs/reporting-false-negatives/
+### Commands
+1) npm audit --json
+2) npx prisma validate --schema prisma/schema.prisma
 
+### npm audit --json (summary)
+{
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "dependencies": {
+    "prod": 36,
+    "dev": 73,
+    "optional": 33,
+    "peer": 0,
+    "peerOptional": 0,
+    "total": 108
+  }
+}
+
+### prisma validate
+Prisma schema loaded from prisma/schema.prisma
+The schema at prisma/schema.prisma is valid 🚀
