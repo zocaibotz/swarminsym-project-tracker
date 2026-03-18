@@ -1,0 +1,25 @@
+Run swarm:
+Requirement: Frontend - Project Dashboard - Build main dashboard with project overview cards showing active projects, recent activity feed, phase progress indicators, and quick stats. Use React with TypeScript, implement responsive design with TailwindCSS.
+
+**Acceptance Criteria:**
+
+* Dashboard loads within 2 seconds.
+* Project cards show phase progress bars.
+* Activity feed updates in real-time.
+* Search bar filters projects by name.
+* Create project modal is functional.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-92.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-92/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-92.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-92`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.
