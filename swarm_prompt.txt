@@ -1,0 +1,25 @@
+Run swarm:
+Requirement: Frontend - Decisions & Problems UI - Build dedicated views for AI decisions log and problem tracker. Implement filtering by phase, severity, date range. Create problem cards showing issue description, attempted resolutions with outcomes, and linked debug logs.
+
+**Acceptance Criteria:**
+
+* Decisions view shows reasoning and outcomes.
+* Problems view links to all resolutions.
+* Debug logs display with syntax highlighting.
+* Filter controls are intuitive and functional.
+* Export functionality works for reports.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-94.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-94/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-94.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-94`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.
