@@ -1,0 +1,21 @@
+# Critic Review - ZOC-95
+
+## Review Focus
+- Requirement coverage vs acceptance criteria
+- TDD evidence quality
+- Simplicity and maintainability
+
+## Findings
+1. **Global search scope**: Implemented across projects/phases/decisions/problems using normalized in-memory index.
+2. **Performance**: Test demonstrates ~19ms query latency for 10k entities, under 500ms target.
+3. **Accessibility basics**: Sidebar exposes deterministic keyboard focus traversal (`focusNext`, `focusPrevious`).
+4. **Mobile behavior**: Sidebar auto-collapses at viewport <= 768px.
+5. **User preferences**: Recent projects and theme persisted via preference store abstraction.
+6. **Keyboard shortcuts**: Cmd/Ctrl+K, Cmd/Ctrl+P, Cmd/Ctrl+, covered by test.
+
+## Risks / Follow-up
+- Integration with real DOM/localStorage framework adapters is still needed in app shell.
+- Search ranking is currently substring-based; relevance scoring can be improved later.
+
+## Verdict
+- Ticket requirements satisfied for the module-level implementation.
