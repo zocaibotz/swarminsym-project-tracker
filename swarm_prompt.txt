@@ -1,0 +1,25 @@
+Run swarm:
+Requirement: Core Observability Setup - Setup global logger with structured JSON logging, OpenTelemetry tracing for distributed request tracking, and APM configuration. Create centralized error handling middleware and request/response logging hooks.
+
+**Acceptance Criteria:**
+
+* Logger is globally available via `import logger from '@/lib/logger'`.
+* All API requests have trace IDs.
+* Errors are logged with full context including stack traces.
+* APM client is initialized and connected.
+* Log output is configurable via environment variables.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-87.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-87/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-87.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-87`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.

@@ -1,0 +1,30 @@
+# Security Scan Report — ZOC-87
+
+Generated: 2026-03-18 UTC
+Branch: ZOC-87
+
+## Commands Run
+1. `semgrep --config auto src tests --error --json`
+2. `npm audit --audit-level=high`
+
+## Results
+
+### 1) SAST (Semgrep)
+- Version: 1.155.0
+- Rules run: 213
+- Files scanned: 6
+- Findings: **0**
+- High/Critical findings: **0**
+
+### 2) Dependency Audit (npm audit)
+- High findings: **0**
+- Critical findings: **0**
+- Moderate findings: 5 (transitive via `vite`/`vitest` and `esbuild` advisory GHSA-67mh-4wv8-2f99)
+
+## Remediation Decision
+- Per ticket requirement, High/Critical vulnerabilities were assessed and none were found.
+- No mandatory remediation required for High/Critical severity.
+- Moderate issues are in test-tooling transitive dependencies and can be addressed in a separate dependency maintenance ticket to avoid breaking upgrades (`vitest@4` major jump).
+
+## Status
+- High/Critical remediated requirement: **PASS**
