@@ -1,0 +1,219 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #d1d5db;
+  --pending: #d97706;
+  --in-progress: #2563eb;
+  --completed: #059669;
+  --blocked: #dc2626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #f8fafc, var(--bg));
+}
+
+.page {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.page h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.page p {
+  color: var(--muted);
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 2.2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+
+.timeline-item {
+  position: relative;
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 1rem;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  left: -1.55rem;
+  top: 1.45rem;
+  border: 2px solid #fff;
+}
+
+.timeline-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+}
+
+.timeline-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.timeline-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.timeline-meta,
+.timeline-summary {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  color: white;
+  text-transform: capitalize;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.expand-btn {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+
+.expand-btn:hover {
+  background: #eef2ff;
+}
+
+.timeline-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 260ms ease, opacity 260ms ease, margin-top 260ms ease;
+  margin-top: 0;
+}
+
+.timeline-details > p {
+  overflow: hidden;
+  margin: 0;
+  color: #334155;
+}
+
+.timeline-details.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0.8rem;
+}
+
+.is-dragging {
+  opacity: 0.6;
+}
+
+.drag-over {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.35);
+}
+
+.status-pending,
+.timeline-item.status-pending::before {
+  background: color-mix(in srgb, var(--pending) 14%, white);
+}
+
+.status-in-progress,
+.timeline-item.status-in-progress::before {
+  background: color-mix(in srgb, var(--in-progress) 14%, white);
+}
+
+.status-completed,
+.timeline-item.status-completed::before {
+  background: color-mix(in srgb, var(--completed) 14%, white);
+}
+
+.status-blocked,
+.timeline-item.status-blocked::before {
+  background: color-mix(in srgb, var(--blocked) 14%, white);
+}
+
+.status-pill.status-pending {
+  background: var(--pending);
+}
+
+.status-pill.status-in-progress {
+  background: var(--in-progress);
+}
+
+.status-pill.status-completed {
+  background: var(--completed);
+}
+
+.status-pill.status-blocked {
+  background: var(--blocked);
+}
+
+@media (max-width: 720px) {
+  .timeline {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(260px, 82vw);
+    overflow-x: auto;
+    gap: 0.9rem;
+    padding-left: 0;
+    padding-bottom: 0.4rem;
+    scrollbar-width: thin;
+  }
+
+  .timeline::before {
+    content: none;
+  }
+
+  .timeline-item {
+    min-height: 260px;
+  }
+
+  .timeline-item::before {
+    left: 1rem;
+    top: -0.7rem;
+  }
+
+  .timeline-header {
+    grid-template-columns: 1fr;
+  }
+}
