@@ -1,38 +1,31 @@
-Security scan report
-Generated at: 2026-03-18T08:35:57Z
-Issue: ZOC-91
-Branch: ZOC-91
+== Security Scan Report (ZOC-91) ==
+Wed Mar 18 08:39:04 AM UTC 2026
 
-=== semgrep ===
-               
-               
-┌─────────────┐
-│ Scan Status │
-└─────────────┘
-  Scanning 4 files tracked by git with 1063 Code rules:
-  Scanning 4 files with 47 <multilang> rules.
-                
-                
-┌──────────────┐
-│ Scan Summary │
-└──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 47
- • Targets scanned: 4
- • Parsed lines: ~100.0%
- • Scan was limited to files tracked by git
- • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
-Ran 47 rules on 4 files: 0 findings.
-(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+$ npm audit --audit-level=high
+found 0 vulnerabilities
 
-If Semgrep missed a finding, please send us feedback to let us know!
-See https://semgrep.dev/docs/reporting-false-negatives/
+$ npm audit --json
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 66,
+      "dev": 333,
+      "optional": 27,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 398
+    }
+  }
+}
 
-=== npm audit ===
-npm error code ENOLOCK
-npm error audit This command requires an existing lockfile.
-npm error audit Try creating one first with: npm i --package-lock-only
-npm error audit Original error: loadVirtual requires existing shrinkwrap file
-npm error A complete log of this run can be found in: /home/claw-admin/.npm/_logs/2026-03-18T08_36_09_145Z-debug-0.log
-
+$ grep -RIn "eval\\|Function(\\|child_process\\|execSync" src tests || true
