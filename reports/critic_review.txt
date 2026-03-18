@@ -1,0 +1,14 @@
+# Critic Review — ZOC-92
+
+## Checklist
+- [x] Dashboard presents active projects with phase progress bars.
+- [x] Quick stats section present and computed from state.
+- [x] Activity feed updates in real-time (5s interval).
+- [x] Search bar filters project cards by name.
+- [x] Create Project modal opens, validates required fields, and adds project.
+- [x] Responsive Tailwind layout works for small and large viewports.
+- [x] Tests cover acceptance criteria and pass.
+
+## Risks / Follow-ups
+- Real-time updates are currently simulated client-side; integrate backend stream for production.
+- Build bundle can be optimized further with code-splitting if dashboard grows.
