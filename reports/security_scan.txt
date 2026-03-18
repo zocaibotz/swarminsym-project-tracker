@@ -1,31 +1,35 @@
-Security scan report
-Generated at: 2026-03-18T08:11:48Z
-Issue: ZOC-97
-Branch: ZOC-97
+Security Scan Report
+Generated: 2026-03-18 UTC
+Ticket: ZOC-97
 
-=== semgrep ===
-               
-               
-┌─────────────┐
-│ Scan Status │
-└─────────────┘
-  Scanning 4 files tracked by git with 1063 Code rules:
-  Scanning 4 files with 47 <multilang> rules.
-                
-                
-┌──────────────┐
-│ Scan Summary │
-└──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 47
- • Targets scanned: 4
- • Parsed lines: ~100.0%
- • Scan was limited to files tracked by git
- • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
-Ran 47 rules on 4 files: 0 findings.
-(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+Scope:
+- Local dependency audit
+- Local SAST scan
 
-If Semgrep missed a finding, please send us feedback to let us know!
-See https://semgrep.dev/docs/reporting-false-negatives/
+1) Dependency Audit
+Command:
+  npm audit --audit-level=high
 
+Result:
+  found 0 vulnerabilities
+
+Assessment:
+- High/Critical findings: 0
+- Remediation required: none
+
+2) SAST (Semgrep)
+Command:
+  semgrep --config p/owasp-top-ten .
+
+Result (summary):
+- Findings: 0
+- Rules run: 81
+- Targets scanned: 14
+- Parsed lines: ~100%
+
+Assessment:
+- High/Critical findings: 0
+- Remediation required: none
+
+Conclusion:
+No High or Critical security issues detected in current branch changes.

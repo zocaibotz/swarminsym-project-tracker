@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SWARMINSYM Project Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>SWARMINSYM Project Tracker</h1>
+
+      <section>
+        <label for="projectName">Project name</label>
+        <input id="projectName" aria-label="Project name" />
+        <button id="createProject">Create Project</button>
+      </section>
+
+      <section>
+        <h2>Project Summary</h2>
+        <p data-testid="project-name">No project yet</p>
+      </section>
+
+      <section>
+        <label for="phaseName">Phase name</label>
+        <input id="phaseName" aria-label="Phase name" />
+        <button id="addPhase">Add Phase</button>
+        <ul id="phases"></ul>
+      </section>
+
+      <section>
+        <label for="decisionNote">Decision note</label>
+        <input id="decisionNote" aria-label="Decision note" />
+        <button id="logDecision">Log Decision</button>
+        <ul id="decisions"></ul>
+      </section>
+
+      <section>
+        <label for="problemReport">Problem report</label>
+        <input id="problemReport" aria-label="Problem report" />
+        <button id="reportProblem">Report Problem</button>
+        <ul id="problems"></ul>
+      </section>
+
+      <section>
+        <label for="resolutionDetails">Resolution details</label>
+        <input id="resolutionDetails" aria-label="Resolution details" />
+        <button id="addResolution">Add Resolution</button>
+        <ul id="resolutions"></ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
