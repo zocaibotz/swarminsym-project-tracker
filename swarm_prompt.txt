@@ -1,0 +1,23 @@
+Run swarm:
+Requirement: Architect System Design - Create SYSTEM_DESIGN.md with complete architecture including frontend stack, backend structure, database schema overview, API design patterns, and deployment strategy. Create API_CONTRACTS.md documenting all REST endpoints, request/response schemas, and authentication flows.
+
+**Acceptance Criteria:**
+
+* SYSTEM_DESIGN.md is merged to main branch with complete architecture diagrams.
+* API_CONTRACTS.md is merged with all endpoint definitions.
+* Technology stack is finalized and documented.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-86.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-86/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-86.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-86`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.

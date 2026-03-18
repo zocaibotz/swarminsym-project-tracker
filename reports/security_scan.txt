@@ -1,0 +1,31 @@
+Security scan report
+Generated at: 2026-03-18T02:41:07Z
+Issue: ZOC-86
+Branch: ZOC-86
+
+=== semgrep ===
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 6 files tracked by git with 1063 Code rules:
+  Scanning 6 files with 47 <multilang> rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 47
+ • Targets scanned: 6
+ • Parsed lines: ~100.0%
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 47 rules on 6 files: 0 findings.
+(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+
+If Semgrep missed a finding, please send us feedback to let us know!
+See https://semgrep.dev/docs/reporting-false-negatives/
+
