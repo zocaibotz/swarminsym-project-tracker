@@ -1,31 +1,25 @@
 Security scan report
-Generated at: 2026-03-18T08:10:51Z
+Generated at: 2026-03-18T08:18:00Z
 Issue: ZOC-96
 Branch: ZOC-96
 
-=== semgrep ===
-               
-               
-┌─────────────┐
-│ Scan Status │
-└─────────────┘
-  Scanning 4 files tracked by git with 1063 Code rules:
-  Scanning 4 files with 47 <multilang> rules.
-                
-                
-┌──────────────┐
-│ Scan Summary │
-└──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 47
- • Targets scanned: 4
- • Parsed lines: ~100.0%
- • Scan was limited to files tracked by git
- • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
-Ran 47 rules on 4 files: 0 findings.
-(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+Commands executed:
+1) semgrep scan --config p/owasp-top-ten .
+2) pip-audit -r requirements.txt
 
-If Semgrep missed a finding, please send us feedback to let us know!
-See https://semgrep.dev/docs/reporting-false-negatives/
+=== semgrep (final) ===
+Findings: 0
+Rules run: 176
+Targets scanned: 20
+Status: PASS
 
+=== pip-audit (final) ===
+No known vulnerabilities found.
+Status: PASS
+
+Remediation performed during this ticket:
+- Dockerfile hardened with non-root runtime user (`USER appuser`).
+- Removed Flask development server `app.run(host='0.0.0.0')` pattern.
+- Switched container runtime command to `waitress-serve`.
+- Upgraded Flask to 3.1.3 to remediate GHSA-68rp-wp8r-4726.
+- Re-ran scans until 0 High/Critical blocking findings.
