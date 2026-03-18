@@ -1,0 +1,27 @@
+# Security Scan Report - ZOC-95
+
+Date (UTC): 2026-03-18
+
+## Commands Run
+
+1. Dependency audit
+```bash
+npm install --package-lock-only
+npm audit --json
+```
+
+Result:
+- Vulnerabilities: 0 (info:0 low:0 moderate:0 high:0 critical:0)
+- Remediation required for High/Critical: none
+
+2. Static pattern scan for dangerous dynamic execution
+```bash
+rg -n "\\beval\\b|Function\\(" src tests || true
+```
+
+Result:
+- No matches found in `src/` or `tests/`
+
+## Security Conclusion
+- No High or Critical findings detected.
+- No remediation actions required.
