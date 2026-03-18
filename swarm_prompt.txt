@@ -1,0 +1,25 @@
+Run swarm:
+Requirement: Backend API - Phase Management - Implement endpoints for project phases: POST /api/projects/:id/phases, GET /api/projects/:id/phases, PUT /api/phases/:id, GET /api/phases/:id/details. Define all 10 phases: Prompt, PRD, Design, Architecture, SDD, TDD, Coding, Testing, Deployment, Maintenance.
+
+**Acceptance Criteria:**
+
+* All 10 phases can be created, read, updated.
+* Phases support rich text content and file attachments.
+* Phase ordering is preserved and configurable.
+* Timestamps track start/end of each phase.
+* Phase status transitions are validated.
+Mode: build
+Constraints:
+  - MANDATORY PIPELINE: SDD -> TDD -> Implement -> Security Scan -> Critic Review.
+  - PLANNER: MUST generate `docs/spec/ZOC-90.md`.
+  - CODER: MUST write failing tests first (Red), then passing tests (Green), with test logs in output.
+  - SECURITY: MUST run local SAST/dependency checks and output `reports/security_scan.txt`; remediate High/Critical findings.
+  - CWD: Strictly locked to /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-90/repo.
+  - EXECUTION DISCIPLINE: Do the actual file edits first. Do NOT return status-only messages like "started"/"launched" without producing artifacts.
+Hard Output Contract (required before completion):
+  1) `docs/spec/ZOC-90.md`
+  2) `reports/security_scan.txt`
+  3) For Architect tickets: `docs/architecture/SYSTEM_DESIGN.md` and `docs/architecture/API_CONTRACTS.md`
+  4) Git commits on branch `ZOC-90`
+  5) PR creation via `gh pr create` and PR URL
+  - If unable to satisfy all required outputs, STOP and return explicit failure reason.
