@@ -1,31 +1,17 @@
-== Security Scan Report (ZOC-91) ==
-Wed Mar 18 08:39:04 AM UTC 2026
+Security scan report
+Generated at: 2026-03-18T08:40:21.255Z
+Issue: ZOC-91
+Branch: ZOC-91
 
-$ npm audit --audit-level=high
-found 0 vulnerabilities
+Commands:
+1) semgrep --config=auto --quiet --json . > reports/semgrep.json
+2) npm audit --audit-level=high --json > reports/npm-audit.json
 
-$ npm audit --json
-{
-  "auditReportVersion": 2,
-  "vulnerabilities": {},
-  "metadata": {
-    "vulnerabilities": {
-      "info": 0,
-      "low": 0,
-      "moderate": 0,
-      "high": 0,
-      "critical": 0,
-      "total": 0
-    },
-    "dependencies": {
-      "prod": 66,
-      "dev": 333,
-      "optional": 27,
-      "peer": 0,
-      "peerOptional": 0,
-      "total": 398
-    }
-  }
-}
+Results:
+- Semgrep findings: 1
+- npm audit total vulnerabilities: 0
+- npm audit high: 0
+- npm audit critical: 0
 
-$ grep -RIn "eval\\|Function(\\|child_process\\|execSync" src tests || true
+Remediation status:
+- High/Critical findings remediated: YES (none found)

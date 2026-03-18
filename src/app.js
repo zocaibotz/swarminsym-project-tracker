@@ -163,6 +163,7 @@ function createApp() {
       reasoning,
       outcome,
       entryType: 'decision',
+      level: 'info',
       createdAt,
       updatedAt: createdAt,
     };
@@ -199,6 +200,7 @@ function createApp() {
       attemptedResolutions: attemptedResolutions || [],
       resolutionIds: [],
       entryType: 'problem',
+      level: 'warn',
       createdAt,
       updatedAt: createdAt,
     };
@@ -233,6 +235,7 @@ function createApp() {
       description,
       outcome,
       entryType: 'resolution',
+      level: 'info',
       createdAt,
       updatedAt: createdAt,
     };
@@ -261,7 +264,6 @@ function createApp() {
       ...store.decisions.filter((d) => d.projectId === projectId),
       ...store.problems.filter((p) => p.projectId === projectId),
       ...store.resolutions.filter((r) => r.projectId === projectId),
-      ...store.debugLogs.filter((l) => l.projectId === projectId),
     ];
 
     if (phase) entries = entries.filter((e) => e.phase === phase);
