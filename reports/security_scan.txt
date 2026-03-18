@@ -1,0 +1,36 @@
+# Security Scan Report - ZOC-89
+
+Date (UTC): 2026-03-18
+Repository: /home/claw-admin/.openclaw/workspace/projects/symphony/ZOC-89/repo
+
+## Commands Run
+
+1. Dependency scan:
+   - `npm audit --json > reports/npm_audit.json`
+
+2. Lightweight local SAST pattern scan:
+   - `grep -RInE "eval\(|new Function\(|child_process\.exec\(|process\.env\.[A-Z_]+\s*\+|http:\/\/" src tests`
+   - Output captured in `reports/sast_grep.txt`
+
+## Results
+
+### Dependency Audit (npm audit)
+- Vulnerabilities summary:
+  - info: 0
+  - low: 0
+  - moderate: 0
+  - high: 0
+  - critical: 0
+  - total: 0
+
+### SAST Pattern Scan
+- No insecure pattern matches detected in `src/` and `tests/` for checked patterns.
+
+## High/Critical Remediation Status
+- High findings: 0 (none)
+- Critical findings: 0 (none)
+- Remediation actions required: none
+
+## Notes
+- Validation is enforced with Zod at API boundaries.
+- Delete endpoint implements soft delete (`deletedAt`) to preserve historical records.

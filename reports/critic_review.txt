@@ -1,0 +1,16 @@
+# Critic Review - ZOC-89
+
+## Review Checklist
+- [x] Endpoint coverage complete for required CRUD routes.
+- [x] HTTP status codes align with spec (201/200/204/400/404).
+- [x] Input validation uses Zod schemas for create/update payloads.
+- [x] Pagination response includes `meta.total`, `meta.page`, `meta.limit`.
+- [x] Soft delete behavior verified (deleted records not returned by GET).
+- [x] Unit/API tests cover success and failure paths.
+
+## Findings
+- No blocking issues found.
+- Minor note: current implementation is in-memory repository (non-persistent), acceptable for unit-scoped ticket but should be replaced with DB repository for production.
+
+## Decision
+- Approved for ticket scope.

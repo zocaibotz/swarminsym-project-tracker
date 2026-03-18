@@ -1,0 +1,21 @@
+
+> swarminsym-project-tracker@1.0.0 test
+> jest --runInBand
+
+PASS tests/projects.api.test.js
+  Projects CRUD API
+    ✓ POST /api/projects creates project (39 ms)
+    ✓ POST /api/projects rejects invalid payload (7 ms)
+    ✓ GET /api/projects returns pagination metadata (14 ms)
+    ✓ GET /api/projects/:id returns single project (8 ms)
+    ✓ GET /api/projects/:id returns 404 for missing (3 ms)
+    ✓ PUT /api/projects/:id updates project (9 ms)
+    ✓ PUT /api/projects/:id rejects invalid payload (6 ms)
+    ✓ DELETE /api/projects/:id soft deletes project (7 ms)
+    ✓ DELETE /api/projects/:id returns 404 for missing (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        0.949 s, estimated 1 s
+Ran all test suites.
