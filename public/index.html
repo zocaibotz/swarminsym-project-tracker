@@ -3,134 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SWARMINSYM Tracker</title>
-    <style>
-      body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:#0b1020;color:#e7ecff}
-      .wrap{max-width:1100px;margin:0 auto;padding:24px}
-      .card{background:#151c33;border:1px solid #27345f;border-radius:12px;padding:16px;margin-bottom:16px}
-      input,textarea,button,select{font:inherit;padding:8px;border-radius:8px;border:1px solid #3f4f84;background:#0f1630;color:#e7ecff}
-      button{cursor:pointer;background:#3a66ff;border:none}
-      .row{display:flex;gap:8px;flex-wrap:wrap}
-      .projects{display:grid;grid-template-columns:300px 1fr;gap:12px}
-      ul{padding-left:18px}
-      .muted{color:#9fb1e3}
-    </style>
+    <title>SWARMINSYM Tracker Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="wrap">
-      <h1>SWARMINSYM Project Tracker</h1>
-      <p class="muted">Live + historical view of projects, phases, decisions, problems, and resolutions.</p>
-
-      <div class="card">
-        <h3>Create project</h3>
-        <div class="row">
-          <input id="name" placeholder="Project name" style="min-width:240px" />
-          <input id="prompt" placeholder="Original prompt" style="min-width:420px" />
-          <button id="create">Create</button>
+    <div class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">SWARMINSYM Tracker</p>
+          <h1>Project Intelligence Dashboard</h1>
+          <p class="hero-copy">
+            Track active delivery, historical outcomes, open problems, stage progress, and artifact coverage from a single operational view.
+          </p>
         </div>
-      </div>
+        <form id="create-project-form" class="panel compact-form">
+          <div class="panel-header">
+            <h2>Create Project</h2>
+            <span class="badge neutral">Live</span>
+          </div>
+          <label>
+            <span>Name</span>
+            <input id="project-name" name="name" placeholder="Fraud Detection Rollout" required />
+          </label>
+          <label>
+            <span>Prompt / context</span>
+            <textarea id="project-prompt" name="prompt" rows="3" placeholder="Short prompt or delivery brief"></textarea>
+          </label>
+          <button type="submit" class="primary-button">Create project</button>
+          <p id="create-project-message" class="helper-text"></p>
+        </form>
+      </header>
 
-      <div class="projects">
-        <div class="card">
-          <h3>Projects</h3>
-          <ul id="projects"></ul>
-        </div>
-        <div class="card">
-          <h3 id="selectedTitle">Select a project</h3>
-          <div id="eventForms" style="display:none">
-            <div class="row" style="margin-bottom:8px">
-              <input id="phase" placeholder="phase (e.g. SDD/TDD/build/test/deploy)" style="min-width:280px" />
+      <main class="dashboard-grid">
+        <section class="panel stats-panel">
+          <div class="panel-header">
+            <h2>Portfolio Snapshot</h2>
+            <span id="stats-updated" class="helper-text"></span>
+          </div>
+          <div id="stats-grid" class="stats-grid"></div>
+        </section>
+
+        <section class="panel projects-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Projects</h2>
+              <p class="helper-text">Browse current and historical workstreams with quick filtering.</p>
             </div>
-            <div class="row" style="margin-bottom:8px">
-              <input id="decision" placeholder="decision context" style="min-width:240px" />
-              <input id="reasoning" placeholder="reasoning" style="min-width:240px" />
-              <input id="outcome" placeholder="outcome" style="min-width:240px" />
-              <button id="addDecision">+ Decision</button>
-            </div>
-            <div class="row" style="margin-bottom:8px">
-              <input id="problemTitle" placeholder="problem title" style="min-width:240px" />
-              <input id="problemDesc" placeholder="problem description" style="min-width:340px" />
-              <button id="addProblem">+ Problem</button>
+            <div class="toolbar">
+              <div class="tabs" id="project-tabs">
+                <button class="tab active" data-tab="all" type="button">All</button>
+                <button class="tab" data-tab="current" type="button">Current</button>
+                <button class="tab" data-tab="historical" type="button">Historical</button>
+                <button class="tab" data-tab="stalled" type="button">Stalled</button>
+              </div>
+              <input id="project-search" type="search" placeholder="Search projects, stages, metadata" />
             </div>
           </div>
-          <h4>Timeline</h4>
-          <ul id="timeline"></ul>
-        </div>
-      </div>
+          <div class="split-panels">
+            <div>
+              <div class="section-title-row">
+                <h3>Current Projects</h3>
+                <span id="current-count" class="counter"></span>
+              </div>
+              <div id="current-projects" class="project-list"></div>
+            </div>
+            <div>
+              <div class="section-title-row">
+                <h3>Historical Projects</h3>
+                <span id="historical-count" class="counter"></span>
+              </div>
+              <div id="historical-projects" class="project-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel activity-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Recent Activity</h2>
+              <p class="helper-text">Latest decisions, problems, resolutions, and artifact updates.</p>
+            </div>
+          </div>
+          <div id="recent-activity" class="activity-feed"></div>
+        </section>
+      </main>
     </div>
 
-    <script>
-      let selectedProject = null;
-
-      async function api(path, opts={}) {
-        const res = await fetch(path, {headers:{'content-type':'application/json'}, ...opts});
-        if (!res.ok) throw new Error(await res.text());
-        return res.json();
-      }
-
-      function el(id){return document.getElementById(id)}
-
-      async function loadProjects(){
-        const {projects=[]} = await api('/api/projects');
-        const ul = el('projects'); ul.innerHTML='';
-        projects.forEach(p=>{
-          const li=document.createElement('li');
-          const b=document.createElement('button');
-          b.textContent=`${p.name} (${new Date(p.updatedAt).toLocaleString()})`;
-          b.onclick=()=>selectProject(p);
-          li.appendChild(b); ul.appendChild(li);
-        });
-      }
-
-      async function selectProject(p){
-        selectedProject=p;
-        el('selectedTitle').textContent=`${p.name} (${p.id})`;
-        el('eventForms').style.display='block';
-        const {events=[]}=await api(`/api/projects/${p.id}/timeline`);
-        const ul=el('timeline'); ul.innerHTML='';
-        events.forEach(e=>{
-          const li=document.createElement('li');
-          const msg = e.type==='decision'
-            ? `[${e.phase}] decision: ${e.context} -> ${e.outcome}`
-            : e.type==='problem'
-            ? `[${e.phase}] problem: ${e.title}`
-            : `[${e.phase}] resolution: ${e.description}`;
-          li.textContent=`${new Date(e.createdAt).toLocaleString()} - ${msg}`;
-          ul.appendChild(li);
-        });
-      }
-
-      el('create').onclick=async()=>{
-        const name=el('name').value.trim();
-        const prompt=el('prompt').value.trim();
-        if(!name) return;
-        const {project}=await api('/api/projects',{method:'POST',body:JSON.stringify({name,prompt})});
-        await loadProjects();
-        await selectProject(project);
-      };
-
-      el('addDecision').onclick=async()=>{
-        if(!selectedProject) return;
-        await api(`/api/projects/${selectedProject.id}/decisions`,{method:'POST',body:JSON.stringify({
-          phase:el('phase').value.trim()||'unspecified',
-          context:el('decision').value.trim(),
-          reasoning:el('reasoning').value.trim()||'n/a',
-          outcome:el('outcome').value.trim()||'n/a'
-        })});
-        await selectProject(selectedProject);
-      };
-
-      el('addProblem').onclick=async()=>{
-        if(!selectedProject) return;
-        await api(`/api/projects/${selectedProject.id}/problems`,{method:'POST',body:JSON.stringify({
-          phase:el('phase').value.trim()||'unspecified',
-          title:el('problemTitle').value.trim(),
-          description:el('problemDesc').value.trim()
-        })});
-        await selectProject(selectedProject);
-      };
-
-      loadProjects();
-    </script>
+    <script src="/dashboard.js"></script>
   </body>
 </html>

@@ -1,77 +1,112 @@
 # SWARMINSYM Project Tracker
 
-Track **live and historical** SWARMINSYM projects from prompt → PRD → design → architecture → SDD → TDD → coding → testing → deployment, including decisions, problems, and resolutions.
+SWARMINSYM Project Tracker is a lightweight Node.js dashboard for monitoring live and historical delivery across the full project lifecycle. It combines a professional two-page UI with a backward-compatible API that captures project decisions, problems, resolutions, stage progress, and linked artifacts.
 
 ## Features
 
-- Project registry with historical retention
-- Timeline view per project (decisions / problems / resolutions)
-- API for ingesting run artifacts and debugging records
-- Persistent storage using **SQLite** by default
-- Optional DB adapter path for Postgres/MySQL (documented interface)
-- Self-hostable Node.js service
+- Landing dashboard with portfolio stats, current vs. historical projects, search, and recent activity.
+- Project detail page with status header, clickable stage timeline, stage-specific detail panes, and artifact coverage.
+- SQLite persistence by default, with automatic in-memory mode for tests.
+- Backward-compatible legacy routes for decisions, problems, resolutions, timelines, and debug-log filters.
+- Derived metrics for total artifacts, open problems, decision volume, average duration, and stalled-project detection.
 
-## Quick Start
+## Screenshots
 
-### Requirements
-- Node.js 22+
+- Placeholder guidance lives in [docs/assets/README.md](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/assets/README.md).
 
-### Install
-```bash
-npm install
-```
+## Architecture
 
-### Run
-```bash
-npm start
-# http://localhost:3000
-```
+- `src/server.js` starts the HTTP server.
+- `src/app.js` contains the Express app, storage adapters, derived metrics, and API routes.
+- `public/index.html` is the landing dashboard.
+- `public/project.html` is the project detail page.
+- `public/styles.css`, `public/dashboard.js`, and `public/project.js` provide the UI styling and behavior.
+- `data/tracker.db` is the default SQLite database file in local runs.
 
-### Environment Variables
-- `PORT` (default: `3000`)
-- `TRACKER_DB` (`sqlite` default; use `memory` for ephemeral mode)
-- `DB_PATH` (default: `./data/tracker.db`)
+## API Overview
 
-## API (core)
+Core legacy routes:
 
-### Projects
-- `POST /api/projects` → create project `{ name, prompt }`
-- `GET /api/projects` → list projects (historical)
-
-### Timeline data
+- `POST /api/projects`
+- `GET /api/projects`
 - `POST /api/projects/:id/decisions`
 - `POST /api/projects/:id/problems`
 - `POST /api/problems/:id/resolutions`
 - `GET /api/projects/:id/timeline`
 - `GET /api/projects/:id/debug-logs`
 
-## Docs Bundle
-See `docs/`:
-- `docs/PRD.md`
-- `docs/SDD.md`
-- `docs/TDD.md`
-- `docs/ARCHITECTURE.md`
-- `docs/DEPLOYMENT.md`
-- `docs/OPERATIONS.md`
+Dashboard and detail routes:
 
-## Self-hosting
+- `GET /api/dashboard`
+- `GET /api/dashboard/stats`
+- `GET /api/dashboard/projects`
+- `GET /api/dashboard/recent-events`
+- `GET /api/projects/:id/overview`
+- `GET /api/projects/:id/stages`
+- `GET /api/projects/:id/artifacts`
+- `GET /api/projects/:id/recent-events`
+- `POST /api/projects/:id/artifacts`
 
-### Bare metal / VPS
+## Local Development
+
+### Prerequisites
+
+- Node.js 22+
+
+### Install
+
 ```bash
-npm ci --omit=dev
-PORT=3000 TRACKER_DB=sqlite DB_PATH=./data/tracker.db npm start
+npm install
 ```
 
-### PM2
+### Run
+
+```bash
+npm start
+```
+
+Open `http://localhost:3000/index.html` for the dashboard or `http://localhost:3000/project.html?id=<projectId>` for a project detail page.
+
+### Test
+
+```bash
+npm test
+```
+
+## Environment Variables
+
+- `PORT`: HTTP port. Default `3000`.
+- `TRACKER_DB`: Storage mode. Default SQLite; set to `memory` for ephemeral runs.
+- `DB_PATH`: SQLite database path. Default `./data/tracker.db`.
+- `STALLED_THRESHOLD_DAYS`: Number of inactive days before an active project is marked stalled. Default `7`.
+
+## Deployment
+
+### Bare Node.js
+
+```bash
+npm ci --omit=dev
+PORT=3000 TRACKER_DB=sqlite DB_PATH=/var/lib/swarminsym/tracker.db npm start
+```
+
+### Process Manager
+
 ```bash
 pm2 start "npm start" --name swarminsym-tracker
 pm2 save
 ```
 
-## Testing
-```bash
-npm test
-```
+Use Nginx or Caddy in front of the app for TLS termination and host-level access control.
+
+## Repository Docs
+
+- [PRD](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/PRD.md)
+- [SDD](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/SDD.md)
+- [TDD](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/TDD.md)
+- [Architecture](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/ARCHITECTURE.md)
+- [Deployment](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/DEPLOYMENT.md)
+- [Operations](/home/claw-admin/.openclaw/workspace/projects/swarminsym-project-tracker-fix/docs/OPERATIONS.md)
 
 ## License
+
 MIT
