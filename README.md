@@ -70,7 +70,15 @@ Open `http://localhost:3000/index.html` for the dashboard or `http://localhost:3
 ### Test
 
 ```bash
+# API/unit tests (Jest)
 npm test
+
+# Browser E2E tests (Playwright)
+npx playwright install chromium
+npm run test:e2e
+
+# Full gate
+npm run test:all
 ```
 
 ## Environment Variables
